@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "test-oblako-front"
+    }
+  },
+  "defaultProject": "test-oblako-front",
+  "cli": {
+    "analytics": "25f6f4af-fbba-4e73-95d3-9fd9ed6db369"
+  }
 }

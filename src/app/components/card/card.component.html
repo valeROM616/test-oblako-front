@@ -1,0 +1,24 @@
+<div class="projects__container">
+  <mat-card class="example-card" *ngFor="let project of projects$ | async">
+    <mat-card-header>
+      <mat-card-title> {{ project.title }} </mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-list-item
+      class="list-item"
+      *ngFor="let todo of project.todos"
+      [class.todo-is-completed]="todo.isCompleted"
+    >
+      <mat-checkbox
+        [checked]="todo.isCompleted"
+        class="checkbox-default"
+        (change)="switchTodoIsCompleted(todo)"
+        color="primary"
+      >
+        <span class="check-box-label" [ngClass]="todo.isCompleted ? 'striked' : ''">
+          {{ todo.text }}
+        </span>
+      </mat-checkbox>
+    </mat-list-item>
+  </mat-card>
+</div>

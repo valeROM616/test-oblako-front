@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Todo } from 'src/app/models/todo';
-import { Project } from '../../models/project'
-import { ProjectsService } from '../../services/projects.service';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Todo} from 'src/app/models/todo';
+import {Project} from '../../models/project';
+import {ProjectsService} from '../../services/projects.service';
 
 @Component({
   selector: 'app-card',
@@ -11,17 +11,21 @@ import { ProjectsService } from '../../services/projects.service';
 })
 
 export class CardComponent implements OnInit {
-  projects$: Observable<Project[]>
+  projects$: Observable<Project[]>;
 
   constructor(
     private projectsService: ProjectsService,
-    ) {}
+  ) {}
 
-  ngOnInit() {
-    this.projects$ = this.projectsService.projects
+  trackByFn(index, item): number {
+    return item.id;
+  }
+
+  ngOnInit(): void {
+    this.projects$ = this.projectsService.projects;
   }
 
   switchTodoIsCompleted(todo: Todo): void {
-    this.projectsService.updateTodo(todo)
+    this.projectsService.updateTodo(todo);
   }
 }

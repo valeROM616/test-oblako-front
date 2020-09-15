@@ -5,8 +5,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { plainToClass } from 'class-transformer';
 import { Project } from '../models/project';
 import { Todo } from '../models/todo';
+import {environment} from '../../environments/environment';
 
-const url = 'https://stark-oasis-27659.herokuapp.com/';
+const url = environment.api_url;
 
 @Injectable({
   providedIn: 'root',
@@ -26,17 +27,17 @@ export class ApiService {
   }
 
   updateTodo(todo: Todo): Observable<Todo> {
-    let body: string = `{ "todo_id": ${todo.id} }`;
+    const body = `{ "todo_id": ${todo.id} }`;
     return this.http
       .patch<Todo>(url + 'projects', body, this.httpOptions)
       .pipe(map((plainTodo) => plainToClass(Todo, plainTodo)));
   }
 
-  createTodo(todo_text: string, project_title: string): Observable<Todo> {
-    let body: string = `{
+  createTodo(todoText: string, projectTitle: string): Observable<Todo> {
+    const body = `{
       "todo":{
-        "text":"${todo_text}",
-        "project_title":"${project_title}"
+        "text":"${todoText}",
+        "project_title":"${projectTitle}"
       }
     }
     `;

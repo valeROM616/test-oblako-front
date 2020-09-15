@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Observable, Subscription} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 import {
   FormGroup,
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { ProjectsService } from '../../services/projects.service';
-import { Project } from 'src/app/models/project';
+import {ProjectsService} from '../../services/projects.service';
+import {Project} from 'src/app/models/project';
 
 interface NewTask {
   text: string;
@@ -35,18 +35,18 @@ export class TodoComponent implements OnInit {
     this.projects$ = this.projectsService.projects;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
     this.subscriptions.push(
       this.todoReactiveForm
         .get('selectedCategory')
         .valueChanges.subscribe((value) => {
-          if (value === 'new') {
-            this.todoReactiveForm.get('customNewCategory').enable();
-          } else {
-            this.todoReactiveForm.get('customNewCategory').disable();
-          }
-        })
+        if (value === 'new') {
+          this.todoReactiveForm.get('customNewCategory').enable();
+        } else {
+          this.todoReactiveForm.get('customNewCategory').disable();
+        }
+      })
     );
   }
 
@@ -56,12 +56,16 @@ export class TodoComponent implements OnInit {
     });
   }
 
+  trackByFn(index, item): number {
+    return item.id;
+  }
+
   initForm() {
     this.todoReactiveForm = this.fb.group({
       text: [null, [Validators.required]],
       selectedCategory: [null, [Validators.required]],
       customNewCategory: [
-        { value: null, disabled: true },
+        {value: null, disabled: true},
         [Validators.required],
       ],
     });
@@ -76,6 +80,5 @@ export class TodoComponent implements OnInit {
     } else {
       this.projectsService.createTodo(new_task.text, new_task.selectedCategory);
     }
-    window.location.reload();
   }
 }

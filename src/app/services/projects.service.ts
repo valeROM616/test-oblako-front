@@ -32,12 +32,12 @@ export class ProjectsService {
 
   createTodo(todo_text: string, project_title: string): void {
     this.api.createTodo(todo_text, project_title).subscribe(todo => {
-      let project: Project = this.objects.find(e => e.title === todo.project_title);
+      let project: Project = this.objects.find(e => e.id === todo.project_id);
       if (typeof project !== 'undefined') {
-        project.todos.push(todo.todo);
+        project.todos.push(todo);
       } else {
-        let newProject = new Project(todo.project_title);
-        newProject.todos = [todo.todo];
+        let newProject = new Project(project_title);
+        newProject.todos = [todo];
         this.objects.push(newProject);
       }
     });

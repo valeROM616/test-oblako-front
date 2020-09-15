@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  api_url: 'https://stark-oasis-27659.herokuapp.com/',
+  // api_url: 'https://stark-oasis-27659.herokuapp.com/',
+  api_url: 'http://localhost:3000/',
   production: false
 };
 
